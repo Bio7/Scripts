@@ -1,5 +1,6 @@
 /*
 A macro to save all particles as images!
+Author: M.Austenfeld
 See: https://forum.image.sc/t/saving-each-roi-as-individual-images/3227/8
 */
 setBatchMode(true);
