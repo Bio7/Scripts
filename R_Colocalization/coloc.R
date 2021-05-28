@@ -1,3 +1,5 @@
+# A R script for colocalization with Bio7 using the ROI Manager ImageJ to R transfer.
+# Author: M. Austenfeld
 library(RColorBrewer)
 
 result_pearson <- NULL
@@ -46,7 +48,7 @@ icq_Coeff<-function(channel1, channel2){
     icq<-(nve/ntotal)-0.5
     return(icq)
 }
-
+# Tests all ROI's of all layers of a stack with R,G channels.
 allColocStatsFromWsVars <- function() {
 	result_pearson <<- NULL
 	result_mander <<- NULL
