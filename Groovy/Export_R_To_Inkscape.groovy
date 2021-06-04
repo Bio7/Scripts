@@ -13,6 +13,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.swt.widgets.Display;
 import com.eco.bio7.util.Util;
 import com.eco.bio7.reditors.REditor;
+import org.eclipse.core.runtime.IProgressMonitor;
+import com.eco.bio7.rbridge.ExecuteRScript;
 
 Display display = Util.getDisplay();
 display.asyncExec(new Runnable() {
@@ -21,12 +23,16 @@ display.asyncExec(new Runnable() {
 		if (editor instanceof REditor) {
 			String path = Bio7Dialog.saveFile("*.svg");
 			String pathRData = path.replace(".svg", ".RData").replace("\\", "/");
-			if (RServe.isAlive()) {
+			new ExecuteRScript((rserveCon, monitor) -> {
+				rserveCon.eval("save(file=\"" + pathRData + "\")");
+			monitor.worked(1);
+			}, 1);
+			/*if (RServe.isAlive()) {
 				RServeUtil.evalR("save(file=\"" + pathRData + "\")", null);
 			}
 			else{
 				System.out.println("Rserve not running. R workspace not saved!");
-			}
+			}*/
 			IDocumentProvider dp = editor.getDocumentProvider();
 			IDocument doc = dp.getDocument(editor.getEditorInput());
 			String rCode = doc.get();
